@@ -10,7 +10,7 @@ and custom tools for creating problems, running solutions and connecting people.
 First install the `wybe` tool with the following command:
 
 ```sh
-dotnet tool install -g wybe
+dotnet tool install -g wybetool
 ```
 
 then we need to create our `wybe.dev` repository with:
@@ -39,7 +39,7 @@ cd wybe.dev
 wybe solve lamg/life-universe-everything
 ```
 
-this creates the directory `problems/life-universe-everything` with an F# project
+this creates the directory `problems/lamg/life-universe-everything` with an F# project
 and the following files:
 
 - `wybe.dev.fsproj`: F# project for this solution.
@@ -57,3 +57,9 @@ your solution.
 Once we finish development we can upload our changes to our `wybe.dev` repository
 in GitHub. This will trigger a GitHub Action that will test our solution and
 record the results in https://wybe.dev.
+
+### Creating a problem
+
+Execute the command `wybe create -n PROBLEM_NAME` in the `wybe.dev` root path.
+This will create a new project in `problems/PROBLEM_NAME` which you can modify
+accordingly.

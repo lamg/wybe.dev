@@ -1,0 +1,29 @@
+name: Run Solutions
+
+on:
+  push:
+    paths:
+      - 'solutions/**'
+      - '.github/workflows/test-solution.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:8.0
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Extract test projects
+      id: get-test-projects
+      run: |
+        TEST_PROJECTS=$(grep -oP 'test_now = \[\s*\K"[^"]*"' solutions/project.toml | sed 's/"//g')
+        echo "PROJECTS=$TEST_PROJECTS" >> $GITHUB_ENV
+
+    - name: Run tests
+      run: |
+        for PROJECT in $PROJECTS
+        do
+          dotnet test solutions/$PROJECT
+        done
